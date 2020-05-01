@@ -1,42 +1,3 @@
-<fc #008000><fs x-large>Alexa Custom Skill - Stock Prices</fs></fc>
-
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
-
-
-<fs small>
-**Author:** Tristan Brodeur 
-
-**Email:** brodeurtristan@gmail.com
-
-**Date:** Last modified on 01/16/17
-
-**Keywords:** Alexa, Amazon Skills Kit</fs>
-
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
-
-<fs large>Overview</fs>
-
-Create an Alexa Skill that returns stock data for 10 listed companies.
-
-
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
-
-1. <fs large>Create a Lambda Function</fs>
-
-To create a lambda function, follow this tutorial: [[using_lambda|Creating a lambda function]]
-
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
-
-2. <fs large>Add the code</fs>
-
-<fc #4682b4>
-******The code below is commented out in order to provide you with a better understanding. If you have any further questions, please feel free to contact me at the email listed above.******</fc>
-
-<code python index.py>
 import requests
 from bs4 import BeautifulSoup
 '''
@@ -51,7 +12,7 @@ def lambda_handler(event, context):
 		#Change to application id listed under your alexa skill in the developer portal
 		"amzn1.ask.skill.XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"):
 		raise ValueError("Invalid Application ID")
-
+ 
 	if event["session"]["new"]:
 		on_session_started({"requestId": event["request"]["requestId"]}, event["session"])
 		#check event types and call appropriate response
@@ -71,7 +32,7 @@ def on_launch(launch_request, session):
 def on_intent(intent_request, session):
 	intent = intent_request["intent"]
 	intent_name = intent_request["intent"]["name"]
-
+ 
 	if intent_name == "GetCurrentPrice":
 		return get_current_price(intent)
 	elif intent_name == "GetHigh":
@@ -106,22 +67,22 @@ def get_welcome_response():
 	should_end_session = False
 	return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-
+ 
 ##################################################################
 def find_availability(to_find, restaurant):
 	page = requests.get("")
 	page_data = BeautifulSoup(page.content, "html.parser")
-
-
+ 
+ 
 ##################################################################
 def grab_data(to_find, ticker_code):
-
+ 
 	if ticker_code != "EVRGRN":
 		#send http response fro yahoo finance to grab data based on passed in ticker code
 		page = requests.get("https://finance.yahoo.com/quote/" + ticker_code + "?p=" + ticker_code)
 		#resolves the page content into its component parts
 		data = BeautifulSoup(page.content, "html.parser")
-
+ 
 		if to_find == "get_current_price":
 			#grab text from appropriate class and return to current object
 			current = data.find(class_ = "Fw(b) Fz(36px) Mb(-4px)").get_text()
@@ -133,7 +94,7 @@ def grab_data(to_find, ticker_code):
 			dollars = ''.join(map(str, dollars))
 			cents = ''.join(map(str, cents))
 			return dollars + " dollars and " + cents + " cents"
-
+ 
 		elif to_find == "get_high" or to_find =="get_low":
 			classes= data.find_all(class_ = "Ta(end) Fw(b)")
 			#several stock values are listed under the class with the given value, so
@@ -182,19 +143,19 @@ def get_current_price(intent):
 	reprompt_text = "I'm not sure which company you wanted stock prices for. " \
                     "Please try again."
 	should_end_session = False
-
+ 
 	if "Ticker" in intent["slots"]:
     		ticker_name = intent["slots"]["Ticker"]["value"]
     		#grab appropriate value based on name from ticke code dict
         	ticker_code = get_ticker_code(ticker_name.lower())
-
+ 
       	if (ticker_code != "unkn"):
       		card_title = "Current price for  " + ticker_name.title()
       		price = grab_data(get_current_price.__name__, ticker_code)
       		speech_output = "Current price for  " + ticker_name + " is: " + price
       		reprompt_text = ""
       		should_end_session = True
-
+ 
 	return build_response(session_attributes, build_speechlet_response(
         	card_title, speech_output, reprompt_text, should_end_session))
 ##################################################################
@@ -206,19 +167,19 @@ def get_high(intent):
 	reprompt_text = "I'm not sure which company you wanted stock prices for. " \
                     "Please try again."
 	should_end_session = False
-
+ 
 	if "Ticker" in intent["slots"]:
     		ticker_name = intent["slots"]["Ticker"]["value"]
     		#grab appropriate value based on name from ticke code dict
         	ticker_code = get_ticker_code(ticker_name.lower())
-
+ 
       	if (ticker_code != "unkn"):
       		card_title = "High price for  " + ticker_name.title()
       		price = grab_data(get_high.__name__, ticker_code)
       		speech_output = "Stock high for " + ticker_name +  " is: " + price
       		reprompt_text = ""
       		should_end_session = True
-
+ 
 	return build_response(session_attributes, build_speechlet_response(
         	card_title, speech_output, reprompt_text, should_end_session))			
 ##################################################################
@@ -230,19 +191,19 @@ def get_low(intent):
 	reprompt_text = "I'm not sure which company you wanted stock prices for. " \
 			"Please try again."
 	should_end_session = False
-	
+ 
 	if "Ticker" in intent["slots"]:
 		ticker_name = intent["slots"]["Ticker"]["value"]
 		#grab appropriate value based on name from ticke code dict
 		ticker_code = get_ticker_code(ticker_name.lower())
-	
+ 
 		if (ticker_code != "unkn"):
 			card_title = "Low price for  " + ticker_name.title()
       		price = grab_data(get_low.__name__, ticker_code)
       		speech_output = "Stock low for " + ticker_name + " is: " + price
       		reprompt_text = ""
       		should_end_session = True
-      		
+ 
 	return build_response(session_attributes, build_speechlet_response(
       	card_title, speech_output, reprompt_text, should_end_session))
 ##################################################################
@@ -289,13 +250,4 @@ def build_response(session_attributes, speechlet_response):
 		"version": "1.0",
 		"sessionAttributes": session_attributes,
 		"response": speechlet_response
-}		
-</code>
-
-<fc #4682b4>
-******Make sure to change the application id listed in lambda_handler() to your own id once you create the Alexa Skill with Alexa Skills Kit******</fc>
-
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
-
-After the code is added, [[using_alexa_skills_kit|configure your lambda function with the Alexa Skills Kit.]]
+}
