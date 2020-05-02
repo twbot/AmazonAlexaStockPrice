@@ -289,4 +289,4 @@ def build_response(session_attributes, speechlet_response):
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-After the code is added, [configure your lambda function with the Alexa Skills Kit.](http://www.daslhub.org/unlv/wiki/doku.php?id=using_alexa_skills_kit)
+After the code is added, [configure your lambda function with the Alexa Skills Kit.](https://github.com/twbot/CreatingAnAlexaSkill)
