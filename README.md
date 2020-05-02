@@ -1,10 +1,7 @@
-<fc #008000><fs x-large>Alexa Custom Skill - Stock Prices</fs></fc>
+<fs x-large>Alexa Custom Skill - Stock Prices</fs>
 
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
+-----------------------------------------------------------------------------------------------------------------------------
 
-
-<fs small>
 **Author:** Tristan Brodeur 
 
 **Email:** brodeurtristan@gmail.com
@@ -13,30 +10,26 @@
 
 **Keywords:** Alexa, Amazon Skills Kit</fs>
 
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
+-----------------------------------------------------------------------------------------------------------------------------
 
 <fs large>Overview</fs>
 
 Create an Alexa Skill that returns stock data for 10 listed companies.
 
 
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
+-----------------------------------------------------------------------------------------------------------------------------
 
 1. <fs large>Create a Lambda Function</fs>
 
 To create a lambda function, follow this tutorial: [[using_lambda|Creating a lambda function]]
 
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
+-----------------------------------------------------------------------------------------------------------------------------
 
 2. <fs large>Add the code</fs>
 
-<fc #4682b4>
 ******The code below is commented out in order to provide you with a better understanding. If you have any further questions, please feel free to contact me at the email listed above.******</fc>
 
-<code python index.py>
+```python
 import requests
 from bs4 import BeautifulSoup
 '''
@@ -290,12 +283,10 @@ def build_response(session_attributes, speechlet_response):
 		"sessionAttributes": session_attributes,
 		"response": speechlet_response
 }		
-</code>
+```
 
-<fc #4682b4>
 ******Make sure to change the application id listed in lambda_handler() to your own id once you create the Alexa Skill with Alexa Skills Kit******</fc>
 
-<color #22b14c>-----------------------------------------------------------------------------------------------------------------------------
-</color>
+-----------------------------------------------------------------------------------------------------------------------------
 
-After the code is added, [[using_alexa_skills_kit|configure your lambda function with the Alexa Skills Kit.]]
+After the code is added, [configure your lambda function with the Alexa Skills Kit.](http://www.daslhub.org/unlv/wiki/doku.php?id=using_alexa_skills_kit)
