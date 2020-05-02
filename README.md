@@ -21,13 +21,13 @@ Create an Alexa Skill that returns stock data for 10 listed companies.
 
 1. <fs large>Create a Lambda Function</fs>
 
-To create a lambda function, follow this tutorial: [[using_lambda|Creating a lambda function]]
+To create a lambda function, follow this tutorial: [Creating a lambda function](https://github.com/twbot/LambdaFunctionAlexa)
 
 -----------------------------------------------------------------------------------------------------------------------------
 
 2. <fs large>Add the code</fs>
 
-******The code below is commented out in order to provide you with a better understanding. If you have any further questions, please feel free to contact me at the email listed above.******</fc>
+******The code below is commented out in order to provide you with a better understanding. If you have any further questions, please feel free to contact me at the email listed above.******
 
 ```python
 import requests
